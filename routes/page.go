@@ -19,6 +19,7 @@ type PageData struct {
 }
 
 func RoutesMain(w http.ResponseWriter, r *http.Request) {
+	RoutesTmpl = template.Must(template.ParseFiles("pages/index.gohtml"))
 	fmt.Println("route page")
 }
 
@@ -40,4 +41,6 @@ func TodoFunc(w http.ResponseWriter, r *http.Request) {
 			},
 		},
 	}
+
+	RoutesTmpl.Execute(w, data)
 }
