@@ -1,16 +1,14 @@
 package main
 
 import (
-	"fmt"
+	"html/template"
 	"net/http"
 	todoapp "todoapp/routes"
 )
 
 func main() {
 	mux := http.NewServeMux()
-	mux.HandleFunc("/", todoapp.RoutesMain)
-}
+	todoapp.RoutesTmpl = template.Must(template.ParseFiles("pages/index.html"))
 
-func todo(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("hello world")
+	mux.HandleFunc("/", todoapp.RoutesMain)
 }
