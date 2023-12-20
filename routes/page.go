@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"time"
 )
 
 var RoutesTmpl *template.Template
@@ -43,4 +44,16 @@ func TodoFunc(w http.ResponseWriter, r *http.Request) {
 	}
 
 	RoutesTmpl.Execute(w, data)
+}
+
+func AddTodo(w http.ResponseWriter, r *http.Request) {
+	time.Sleep(2 * time.Second)
+
+	item := r.PostFormValue("todo-details")
+
+	RoutesTmpl = template.Must(template.ParseFiles("pages/index.gohtml"))
+	RoutesTmpl.ExecuteTemplate(w, "list-todos", Todo{
+		Item: item,
+		Done: false,
+	})
 }
